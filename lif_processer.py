@@ -67,7 +67,7 @@ def lif_processer(lif_input_path, channel):
 
     #measuring the time
     end = time.time()
-    time_taken = round(end - start,0)
+    time_taken = round(end - start,2)
     print('-----------------------------------')
     print()
     print("All ", len(processed_files), "files have been processed. You can find the results in the 'out' directory. Have a nice day!")
