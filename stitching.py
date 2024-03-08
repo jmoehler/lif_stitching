@@ -3,11 +3,20 @@ import os
 
 
 def stitch_images(images_path, overlap_percentage=0.1):
-    print("Stitching images")
+    """
+    Stitch multiple images together to create a single panoramic image.
+
+    Args:
+        images_path (str): The path to the directory containing the images.
+        overlap_percentage (float, optional): The percentage of overlap between adjacent images. Defaults to 0.1.
+
+    Returns:
+        None
+    """
     # Correctly get the images sorted by filename
     filenames = sorted([f for f in os.listdir(images_path) if f.endswith('.png')], key=lambda x: int(x.split('_')[1].split('.')[0]))
     images = [Image.open(os.path.join(images_path, f)) for f in filenames]
-    
+
     # Assuming all images have the same size
     width, height = images[0].size
 
@@ -39,30 +48,13 @@ def stitch_images(images_path, overlap_percentage=0.1):
         # Paste the image into the final image
         final_image.paste(img, (x_position, y_position), img if img.mode == 'RGBA' else None)
 
-
-    img_name = images_path.split('/')[2]
+    # Create the output directory if it doesn't exist
     output_path = 'out/full_image/'
-    output_file = img_name + '/'
-    
-    # if save images in new folder, if folder exists, ask user if you want to overwrite
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    output_path = output_path + output_file
+    # Save the final image
+    img_name = images_path.split('/')[-1]
+    final_image.convert('L').save(output_path + f"full_{img_name}.png")
 
-    if os.path.exists(output_path):
-        print("Folder ",output_path, " already exists")
-        overwrite = input("Do you want to overwrite the folder? (y/n)")
-        if overwrite.lower() == 'y':
-            final_image.convert('L').save(output_path + f"full_{img_name}.png")
-        else:
-            print("Full image not saved")
-            return None
-    else:
-        print("Creating folder ",output_path)
-        os.mkdir(output_path)
-        print("Saving images")
-        final_image.convert('L').save(output_path + f"full_{img_name}.png")
-
-    print("Full image saved")
     return None

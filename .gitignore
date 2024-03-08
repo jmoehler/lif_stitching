@@ -2,13 +2,21 @@
 __pycache__/
 *.py[cod]
 *$py.class
-/out
+
 
 # Ignore everything in this directory
 src/*
 
 # But keep the directory itself
 !src/.gitkeep
+
+
+# Ignore everything in this directory
+out/*
+
+# But keep the directory itself
+!out/.gitkeep
+
 
 # C extensions
 *.so
