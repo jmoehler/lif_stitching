@@ -2,6 +2,7 @@ from brightestZ import get_brightestZ
 from mergeZstack import merge_z_stack
 from stitching import stitch_images
 import os
+import time
 
 def lif_processer(lif_input_path, channel):
     """
@@ -19,6 +20,11 @@ def lif_processer(lif_input_path, channel):
     print('If you have any questions/ problems,  please contact me at: jmm123@posteo.de')
     print('-----------------------------------')
     print()
+
+    #measuring the time
+
+    start = time.time()
+
     #check the number of .lif files in the directory
     num_files = len([f for f in os.listdir('./src') if f.endswith('.lif')])
 
@@ -58,5 +64,16 @@ def lif_processer(lif_input_path, channel):
             
             # Stitch the images for the current mosaic tile
             stitch_images('out/tiles/' + img_name + '/')
-    print("All files have been processed. You can find the results in the 'out' directory. Have a nice day!")
+
+    #measuring the time
+    end = time.time()
+    time_taken = round(end - start,0)
+    print('-----------------------------------')
+    print()
+    print("All ", len(processed_files), "files have been processed. You can find the results in the 'out' directory. Have a nice day!")
+    print("stats for nerds: ")
+    print("Time taken: ", str(time_taken), " seconds")
+    #average time per file
+    print("Average time per file: ", str(round(time_taken/len(processed_files),2)), " seconds")
+    print()
 
