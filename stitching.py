@@ -54,7 +54,7 @@ def stitch_images(images_path, overlap_percentage=0.1):
         os.makedirs(output_path)
 
     # Save the final image
-    img_name = images_path.split('/')[-1]
+    img_name = images_path.split('/')[2]
     final_image.convert('L').save(output_path + f"full_{img_name}.png")
 
     return None
