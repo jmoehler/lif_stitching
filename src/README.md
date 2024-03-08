@@ -1,1 +1,1 @@
-test
+Drop your .lif files in this folder
