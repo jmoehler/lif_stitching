@@ -1,1 +1,1 @@
-# lif_-stitching
+# lif_stitching
