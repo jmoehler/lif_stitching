@@ -4,7 +4,7 @@ from stitching import stitch_images
 import os
 import time
 
-def lif_processer(lif_input_path, channel):
+def lif_processer(channel, lif_input_path = './src'):
     """
     Process the lif files in the specified directory. Main handler for the pipeline.
 
@@ -26,7 +26,7 @@ def lif_processer(lif_input_path, channel):
     start = time.time()
 
     #check the number of .lif files in the directory
-    num_files = len([f for f in os.listdir('./src') if f.endswith('.lif')])
+    num_files = len([f for f in os.listdir(lif_input_path) if f.endswith('.lif')])
 
     #add counter for the number of files processed
     counter = 0
