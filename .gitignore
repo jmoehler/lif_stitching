@@ -4,6 +4,12 @@ __pycache__/
 *$py.class
 /out
 
+# Ignore everything in this directory
+src/*
+
+# But keep the directory itself
+!src/.gitkeep
+
 # C extensions
 *.so
 
