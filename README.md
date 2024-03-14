@@ -1,6 +1,6 @@
 # lif_stitching
 
-todos:
+How to run the script:
 - drop your .lif files in the src folder
 - run the main.py
 - done. you find the results in the out folder
