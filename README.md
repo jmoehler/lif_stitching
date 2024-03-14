@@ -1,5 +1,13 @@
 # lif_stitching
 
+todos:
+- drop your .lif files in the src folder
+- run the main.py
+- done. you find the results in the out folder
+
+
+
+
 understanding a lif file:
 
 
