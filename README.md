@@ -1,29 +1,43 @@
 # lif_stitching
 
-How to run the script:
-- drop your .lif files in the src folder
-- run the main.py
-- done. you find the results in the out folder
+**Stitch Leica `.lif` tile scans (Z/T/C‑aware) into analysis‑ready mosaics.**
 
+## What & why
+Use this to restitch Leica LAS X `.lif` tile scans with your own Z‑projection and per‑channel handling, producing clean mosaics for downstream quantification. You can also export the vendor mosaic for quick QA/visual comparison.
 
+## Assumptions about `.lif`
+- Series **0** → all **tiles** (address with `m`).
+- Series **1** → **vendor** pre‑stitched mosaic (optional).
+- Frames are indexed `(z, t, c, m)`; most datasets have `t = 0`.
 
+## Quick start
+1) Put one or more `.lif` files into `./src/`  
+2) Run:
+```bash
+python main.py
+```
+3) See outputs in `./out/<lif_name>/`:
+- `mosaics/<channel>_mosaic.tif` (stitched per channel)
+- `tiles/<channel>_tile-<m>.tif` (projected tiles used for stitching)
+- `debug/*.png` (optional match/layout visuals)
+- `vendor/vendor_mosaic.tif` (if present in series 1)
 
-understanding a lif file:
+## Configure
+- **Z strategy**: choose brightest‑Z (`brightestZ.py`) or max‑projection (`mergeZstack.py`).
+- **Stitching**: tweak OpenCV settings in `stitching.py`.
+- **Channels & names**: set indices and friendly names in your driver code.
+- **Series**: adjust in `lif_processer.py` if your `.lif` ordering differs.
 
+## Requirements
+Python 3.9+. Suggested packages:
+```bash
+pip install numpy opencv-python tifffile imagecodecs readlif
+# If readlif doesn’t work: pip install pylifreader
+```
 
-every file contains two image folders
+## Tips
+- Ensure sufficient tile overlap and texture for robust stitching.
+- Z‑project before stitching to reduce memory and improve alignment.
 
-image folder img.get_image(0) contains all partial scanns
-image folder img.get_image(1) contains a stitched/merged scann.
-
-
-every patial image ( in img_get_image(0)) is identifiably by its number m
-
-every image m contains 
-- a stack of z images (vertical)
-- a stack of t images (time) (in our cas only t=0 is available)
-- several channals c (c-fos,gad67,vglut)
-
-the infividual frame can be accesed through 
-
-img.get_image(0).get_frame(z=int, t= int, c=int,m=int)
+## License
+MIT (see `LICENSE`).
